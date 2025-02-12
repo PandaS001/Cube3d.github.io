@@ -1,0 +1,143 @@
+/* Общие стили */
+body {
+    font-family: sans-serif;
+    background-color: black;
+    overflow: hidden; /* Скрываем полосы прокрутки */
+    display: flex;      /* Flexbox для центрирования */
+    flex-direction: column; /* Элементы в колонну */
+    justify-content: center; /* Центрирование по вертикали */
+    align-items: center; /* Центрирование по горизонтали */
+    min-height: 100vh;
+    margin: 0;
+    color: rgb(255, 1, 1);
+    position: relative; /* Для позиционирования падающих символов */
+}
+
+/* Стили для куба */
+.cube-container {
+    width: 200px;
+    height: 200px;
+    perspective: 800px;
+    margin-bottom: 20px; /* Отступ от куба до кнопки */
+    z-index: 1;  /* Куб поверх падающих символов */
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotateCube 20s infinite linear;
+}
+
+@keyframes rotateCube {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.cube-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Равномерные колонки */
+    grid-template-rows: repeat(3, 1fr);    /* Равномерные строки */
+    gap: 2px;                               /* Расстояние между ячейками */
+    box-sizing: border-box;                  /* Важно, чтобы рамки не увеличивали размер */
+}
+
+/* Размещение граней куба */
+#face1 { transform: translateZ(100px); }
+#face2 { transform: rotateY(90deg) translateZ(100px); }
+#face3 { transform: rotateY(180deg) translateZ(100px); }
+#face4 { transform: rotateY(270deg) translateZ(100px); }
+#face5 { transform: rotateX(90deg) translateZ(100px); }
+#face6 { transform: rotateX(-90deg) translateZ(100px); }
+
+.square {
+    background-color: #042affbc;
+    border: 1px solid #0187f5cb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    cursor: pointer;
+    color: black;
+}
+
+.square:hover {
+    background-color: #00d9ffa7;
+}
+
+/* Стили для падающих символов */
+.character {
+    position: absolute;
+    color: rgb(0, 106, 255);
+    font-size: 2em;
+    white-space: nowrap;
+    animation: falling 5s linear infinite;
+    top: -30px; /* Стартуют выше экрана */
+    z-index: 0; /* Падают под кубом */
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(0vh); /* Стартовая позиция */
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(110vh); /* Конечная позиция (за экраном снизу) */
+        opacity: 1;
+    }
+}
+
+/* Стили для кнопки */
+#restartButton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color:rgb(0, 106, 255);
+    font-size: 1.5em;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    position: fixed; /* Фиксированное положение */
+    bottom: 20px;   /* Отступ от нижнего края */
+    right: 20px;    /* Отступ от правого края */
+    z-index: 1; /* Кнопка поверх падающих символов */
+}
+
+.square-button {
+    display: inline-block; /* Чтобы можно было задавать ширину и высоту */
+    width: 50px; /* Задайте нужную ширину */
+    height: 50px; /* Задайте нужную высоту, чтобы получился квадрат */
+    background-color: #007BFF; /* Синий цвет фона */
+    color: white; /* Белый цвет стрелки */
+    text-decoration: none; /* Убирает подчеркивание у ссылок */
+    font-size: 2em; /* Размер стрелки */
+    text-align: center; /* Центрирует стрелку по горизонтали */
+    line-height: 50px; /* Центрирует стрелку по вертикали (должно совпадать с высотой) */
+    border-radius: 0px; /* Убирает скругление углов */
+    border: none; /* Убирает обводку */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Добавлен transition для background-color */
+
+    position: absolute; /* Абсолютное позиционирование */
+    top: 20px; /* Отступ от верхнего края */
+    left: 20px; /* Отступ от левого края */
+    z-index: 2; /* Чтобы кнопка была поверх всего */
+}
+
+.square-button:hover {
+    background-color: #0056b3; /* Затемненный синий при наведении */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.square-button:active {
+    background-color: #004085; /* Еще более темный синий при нажатии */
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

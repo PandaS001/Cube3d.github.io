@@ -1,0 +1,79 @@
+body {
+    font-family: sans-serif;
+    background-color: rgb(251, 248, 214);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative; /* Необходимо для позиционирования падающих цифр */
+    overflow: hidden; /* Скрываем полосы прокрутки */
+}
+
+/* Контейнер для центрированных кнопок */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Расстояние между кнопками */
+    margin-bottom: 20px; /* Отступ от нижнего края */
+    z-index: 1; /* Чтобы кнопки были поверх падающих символов */
+}
+
+/* Общие стили для кнопок */
+.center-button, .corner-button {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    cursor: pointer;
+    background-color: #FFA500; /* Ярко-оранжевый */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    z-index: 1; /* Чтобы кнопки были поверх падающих символов */
+}
+
+
+
+/* Стили для кнопки в углу */
+.corner-button {
+    position: absolute;
+    top: 20px; /* Отступ от верхнего края */
+    left: 20px; /* Отступ от левого края */
+    z-index: 1; /* Чтобы кнопки были поверх падающих символов */
+}
+
+.center-button:hover, .corner-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.center-button:active, .corner-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для падающих символов */
+.character {
+    position: absolute;
+    color: #FFA500; /* Ярко-оранжевый */
+    font-size: 2em;
+    white-space: nowrap;
+    animation: falling 5s linear infinite;
+    top: -30px; /* Стартуют выше экрана */
+    z-index: 0; /* Падают под кнопками */
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(0vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 1;
+    }
+}
